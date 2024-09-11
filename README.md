@@ -11,7 +11,7 @@ This script contains the following functions:
 - `agreement(G1, G2)` : Compute the GDDA of two directed graphs G1 and G2.
 - `graphlet_degree_distribution(G)` : Compute the GDD of directed graph G.
 - `graphlet_decomposition(G)` : Compute the number of directed graphlets contained in directed graph G.
-- `orbital_features(G)` : Compute degrees of orbits for nodes in directed graph G.
+- `graphlet_degree(G)` : Compute graphlet degrees of all nodes in directed graph G.
 
 
 ### agreement
@@ -60,12 +60,12 @@ decomposition = dgdda.graphlet_decomposition(G1)
 ```
 
 
-### orbital_features
+### graphlet_degree
 
-`features[v][i]` is the degree of the i-th orbit for node v.
+`degrees[v][i]` is the degree of the i-th orbit for node v.
 
 ```python
-features = dgdda.orbital_features(G1)
+degrees = dgdda.graphlet_degree(G1)
 # {0: array([2, 2, 1, 2, 0, 2, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 #         0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0,
 #         1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
