@@ -105,7 +105,7 @@ def graphlet_degree_distribution(G, verbose=False):
         Show a progress bar.
     """
     # Feature matrix (n_nodes x n_orbits)
-    F = orbital_features(G, verbose)
+    F = graphlet_degree(G, verbose)
     F = np.array([ x for x in F.values() ])
 
     return [ np.bincount(F[:, i]) for i in range(F.shape[1]) ]
@@ -151,9 +151,9 @@ def graphlet_decomposition(G, verbose=False):
 
 
 
-def orbital_features(G, verbose=False):
+def graphlet_degree(G, verbose=False):
     """
-    This function computes the orbital features from graph G.
+    This function computes the graphlet degrees of all nodes in graph G.
 
     Arguments
     ----------
@@ -164,13 +164,13 @@ def orbital_features(G, verbose=False):
         Show a progress bar.
     """
     A = nx.to_scipy_sparse_array(G, format="lil")
-    F = _orbital_features(A, verbose)
+    F = _graphlet_degree(A, verbose)
 
     return dict(zip(G.nodes(), F))
 
 
 
-def _orbital_features(A, verbose=False):
+def _graphlet_degree(A, verbose=False):
 
     def comb(n):
         return n * (n - 1) // 2
