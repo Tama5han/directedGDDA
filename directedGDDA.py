@@ -725,7 +725,7 @@ def _graphlet_degree(A, verbose=False):
                 elif t in Star_v_out:
                     m_SvTe_oio += 1
                 elif t in Star_v_in:
-                    m_SvTe_oio += 1
+                    m_SvTe_iio += 1
                 elif t in Tri_e_io:
                     m_TeTe_io += 1
                 elif t in Tri_e_oo:
@@ -744,7 +744,7 @@ def _graphlet_degree(A, verbose=False):
                 elif t in Star_v_out:
                     m_SvTe_ooo += 1
                 elif t in Star_v_in:
-                    m_SvTe_ooo += 1
+                    m_SvTe_ioo += 1
                 elif t in Tri_e_io:
                     m_TeTe_iooo += 1
                 elif t in Tri_e_oo:
@@ -763,7 +763,7 @@ def _graphlet_degree(A, verbose=False):
                 elif t in Star_v_out:
                     m_SvTe_ooi += 1
                 elif t in Star_v_in:
-                    m_SvTe_ooi += 1
+                    m_SvTe_ioi += 1
                 elif t in Tri_e_io:
                     m_TeTe_iooi += 1
                 elif t in Tri_e_oo:
@@ -782,7 +782,7 @@ def _graphlet_degree(A, verbose=False):
                 elif t in Star_v_out:
                     m_SvTe_oii += 1
                 elif t in Star_v_in:
-                    m_SvTe_oii += 1
+                    m_SvTe_iii += 1
                 elif t in Tri_e_io:
                     m_TeTe_ioii += 1
                 elif t in Tri_e_oo:
