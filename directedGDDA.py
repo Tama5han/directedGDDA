@@ -493,9 +493,9 @@ def _graphlet_degree(A, verbose=False):
 
             n_49_50 += len(Nw_out - Ne)
             #n_104_102 += len(Nw_out & Star_u_out)
-            #n_81_83 += len(Nw_out & Star_u_in)
+            #n_81_83   += len(Nw_out & Star_u_in)
             #n_102_101 += len(Nw_out & Star_v_out)
-            #n_89_88 += len(Nw_out & Star_v_in)
+            #n_89_88   += len(Nw_out & Star_v_in)
             n_122_121 += len(Nw_out & Tri_e_io)
             n_117_117 += len(Nw_out & Tri_e_oo)
             n_124_122 += len(Nw_out & Tri_e_oi)
@@ -640,157 +640,132 @@ def _graphlet_degree(A, verbose=False):
 
         for s, t in G_undirected.edges():
 
-            if s in Star_u_out:
+            s_in_Su_out = s in Star_u_out
+            s_in_Su_in  = s in Star_u_in
+            s_in_Sv_out = s in Star_v_out
+            s_in_Sv_in  = s in Star_v_in
+            s_in_Te_io  = s in Tri_e_io
+            s_in_Te_oo  = s in Tri_e_oo
+            s_in_Te_oi  = s in Tri_e_oi
+            s_in_Te_ii  = s in Tri_e_ii
 
-                if t in Star_u_out:
-                    m_SuSu_oo += 1
-                elif t in Star_u_in:
-                    m_SuSu_oi += 1
-                elif t in Star_v_out:
-                    m_SuSv_oo += 1
-                elif t in Star_v_in:
-                    m_SuSv_oi += 1
-                elif t in Tri_e_io:
-                    m_SuTe_oio += 1
-                elif t in Tri_e_oo:
-                    m_SuTe_ooo += 1
-                elif t in Tri_e_oi:
-                    m_SuTe_ooi += 1
-                elif t in Tri_e_ii:
-                    m_SuTe_oii += 1
+            s_in_Su = s_in_Su_out or s_in_Su_in
+            s_in_Sv = s_in_Sv_out or s_in_Sv_in
+            s_in_Te = s_in_Te_io  or s_in_Te_oo or s_in_Te_oi or s_in_Te_ii
 
-            elif s in Star_u_in:
+            t_in_Su_out = t in Star_u_out
+            t_in_Su_in  = t in Star_u_in
+            t_in_Sv_out = t in Star_v_out
+            t_in_Sv_in  = t in Star_v_in
+            t_in_Te_io  = t in Tri_e_io
+            t_in_Te_oo  = t in Tri_e_oo
+            t_in_Te_oi  = t in Tri_e_oi
+            t_in_Te_ii  = t in Tri_e_ii
 
-                if t in Star_u_out:
-                    m_SuSu_oi += 1
-                elif t in Star_u_in:
-                    m_SuSu_ii += 1
-                elif t in Star_v_out:
-                    m_SuSv_io += 1
-                elif t in Star_v_in:
-                    m_SuSv_ii += 1
-                elif t in Tri_e_io:
-                    m_SuTe_iio += 1
-                elif t in Tri_e_oo:
-                    m_SuTe_ioo += 1
-                elif t in Tri_e_oi:
-                    m_SuTe_ioi += 1
-                elif t in Tri_e_ii:
-                    m_SuTe_iii += 1
+            t_in_Su = t_in_Su_out or t_in_Su_in
+            t_in_Sv = t_in_Sv_out or t_in_Sv_in
+            t_in_Te = t_in_Te_io  or t_in_Te_oo or t_in_Te_oi or t_in_Te_ii
 
-            elif s in Star_v_out:
 
-                if t in Star_u_out:
-                    m_SuSv_oo += 1
-                elif t in Star_u_in:
-                    m_SuSv_io += 1
-                elif t in Star_v_out:
-                    m_SvSv_oo += 1
-                elif t in Star_v_in:
-                    m_SvSv_oi += 1
-                elif t in Tri_e_io:
-                    m_SvTe_oio += 1
-                elif t in Tri_e_oo:
-                    m_SvTe_ooo += 1
-                elif t in Tri_e_oi:
-                    m_SvTe_ooi += 1
-                elif t in Tri_e_ii:
-                    m_SvTe_oii += 1
+            if s_in_Su:
 
-            elif s in Star_v_in:
+                if t_in_Su:
 
-                if t in Star_u_out:
-                    m_SuSv_oi += 1
-                elif t in Star_u_in:
-                    m_SuSv_ii += 1
-                elif t in Star_v_out:
-                    m_SvSv_oi += 1
-                elif t in Star_v_in:
-                    m_SvSv_ii += 1
-                elif t in Tri_e_io:
-                    m_SvTe_iio += 1
-                elif t in Tri_e_oo:
-                    m_SvTe_ioo += 1
-                elif t in Tri_e_oi:
-                    m_SvTe_ioi += 1
-                elif t in Tri_e_ii:
-                    m_SvTe_iii += 1
+                    if s_in_Su_out and t_in_Su_out: m_SuSu_oo += 1
+                    if s_in_Su_out and t_in_Su_in:  m_SuSu_oi += 1
+                    if s_in_Su_in  and t_in_Su_out: m_SuSu_oi += 1
+                    if s_in_Su_in  and t_in_Su_in:  m_SuSu_ii += 1
 
-            elif s in Tri_e_io:
+                elif t_in_Sv:
 
-                if t in Star_u_out:
-                    m_SuTe_oio += 1
-                elif t in Star_u_in:
-                    m_SuTe_iio += 1
-                elif t in Star_v_out:
-                    m_SvTe_oio += 1
-                elif t in Star_v_in:
-                    m_SvTe_iio += 1
-                elif t in Tri_e_io:
-                    m_TeTe_io += 1
-                elif t in Tri_e_oo:
-                    m_TeTe_iooo += 1
-                elif t in Tri_e_oi:
-                    m_TeTe_iooi += 1
-                elif t in Tri_e_ii:
-                    m_TeTe_ioii += 1
+                    if s_in_Su_out and t_in_Sv_out: m_SuSv_oo += 1
+                    if s_in_Su_out and t_in_Sv_in:  m_SuSv_oi += 1
+                    if s_in_Su_in  and t_in_Sv_out: m_SuSv_io += 1
+                    if s_in_Su_in  and t_in_Sv_in:  m_SuSv_ii += 1
 
-            elif s in Tri_e_oo:
+                elif t_in_Te:
 
-                if t in Star_u_out:
-                    m_SuTe_ooo += 1
-                elif t in Star_u_in:
-                    m_SuTe_ioo += 1
-                elif t in Star_v_out:
-                    m_SvTe_ooo += 1
-                elif t in Star_v_in:
-                    m_SvTe_ioo += 1
-                elif t in Tri_e_io:
-                    m_TeTe_iooo += 1
-                elif t in Tri_e_oo:
-                    m_TeTe_oo += 1
-                elif t in Tri_e_oi:
-                    m_TeTe_oooi += 1
-                elif t in Tri_e_ii:
-                    m_TeTe_ooii += 1
+                    if s_in_Su_out and t_in_Te_io: m_SuTe_oio += 1
+                    if s_in_Su_out and t_in_Te_oo: m_SuTe_ooo += 1
+                    if s_in_Su_out and t_in_Te_oi: m_SuTe_ooi += 1
+                    if s_in_Su_out and t_in_Te_ii: m_SuTe_oii += 1
+                    if s_in_Su_in  and t_in_Te_io: m_SuTe_iio += 1
+                    if s_in_Su_in  and t_in_Te_oo: m_SuTe_ioo += 1
+                    if s_in_Su_in  and t_in_Te_oi: m_SuTe_ioi += 1
+                    if s_in_Su_in  and t_in_Te_ii: m_SuTe_iii += 1
 
-            elif s in Tri_e_oi:
+            elif s_in_Sv:
 
-                if t in Star_u_out:
-                    m_SuTe_ooi += 1
-                elif t in Star_u_in:
-                    m_SuTe_ioi += 1
-                elif t in Star_v_out:
-                    m_SvTe_ooi += 1
-                elif t in Star_v_in:
-                    m_SvTe_ioi += 1
-                elif t in Tri_e_io:
-                    m_TeTe_iooi += 1
-                elif t in Tri_e_oo:
-                    m_TeTe_oooi += 1
-                elif t in Tri_e_oi:
-                    m_TeTe_oi += 1
-                elif t in Tri_e_ii:
-                    m_TeTe_oiii += 1
+                if t_in_Su:
 
-            elif s in Tri_e_ii:
+                    if s_in_Sv_out and t_in_Su_out: m_SuSv_oo += 1
+                    if s_in_Sv_out and t_in_Su_in:  m_SuSv_io += 1
+                    if s_in_Sv_in  and t_in_Su_out: m_SuSv_oi += 1
+                    if s_in_Sv_in  and t_in_Su_in:  m_SuSv_ii += 1
 
-                if t in Star_u_out:
-                    m_SuTe_oii += 1
-                elif t in Star_u_in:
-                    m_SuTe_iii += 1
-                elif t in Star_v_out:
-                    m_SvTe_oii += 1
-                elif t in Star_v_in:
-                    m_SvTe_iii += 1
-                elif t in Tri_e_io:
-                    m_TeTe_ioii += 1
-                elif t in Tri_e_oo:
-                    m_TeTe_ooii += 1
-                elif t in Tri_e_oi:
-                    m_TeTe_oiii += 1
-                elif t in Tri_e_ii:
-                    m_TeTe_ii += 1
+                elif t_in_Sv:
+
+                    if s_in_Sv_out and t_in_Sv_out: m_SvSv_oo += 1
+                    if s_in_Sv_out and t_in_Sv_in:  m_SvSv_oi += 1
+                    if s_in_Sv_in  and t_in_Sv_out: m_SvSv_oi += 1
+                    if s_in_Sv_in  and t_in_Sv_in:  m_SvSv_ii += 1
+
+                elif t_in_Te:
+
+                    if s_in_Sv_out and t_in_Te_io: m_SvTe_oio += 1
+                    if s_in_Sv_out and t_in_Te_oo: m_SvTe_ooo += 1
+                    if s_in_Sv_out and t_in_Te_oi: m_SvTe_ooi += 1
+                    if s_in_Sv_out and t_in_Te_ii: m_SvTe_oii += 1
+                    if s_in_Sv_in  and t_in_Te_io: m_SvTe_iio += 1
+                    if s_in_Sv_in  and t_in_Te_oo: m_SvTe_ioo += 1
+                    if s_in_Sv_in  and t_in_Te_oi: m_SvTe_ioi += 1
+                    if s_in_Sv_in  and t_in_Te_ii: m_SvTe_iii += 1
+
+            elif s_in_Te:
+
+                if t_in_Su:
+
+                    if s_in_Te_io and t_in_Su_out: m_SuTe_oio += 1
+                    if s_in_Te_io and t_in_Su_in:  m_SuTe_iio += 1
+                    if s_in_Te_oo and t_in_Su_out: m_SuTe_ooo += 1
+                    if s_in_Te_oo and t_in_Su_in:  m_SuTe_ioo += 1
+                    if s_in_Te_oi and t_in_Su_out: m_SuTe_ooi += 1
+                    if s_in_Te_oi and t_in_Su_in:  m_SuTe_ioi += 1
+                    if s_in_Te_ii and t_in_Su_out: m_SuTe_oii += 1
+                    if s_in_Te_ii and t_in_Su_in:  m_SuTe_iii += 1
+
+                elif t_in_Sv:
+
+                    if s_in_Te_io and t_in_Sv_out: m_SvTe_oio += 1
+                    if s_in_Te_io and t_in_Sv_in:  m_SvTe_iio += 1
+                    if s_in_Te_oo and t_in_Sv_out: m_SvTe_ooo += 1
+                    if s_in_Te_oo and t_in_Sv_in:  m_SvTe_ioo += 1
+                    if s_in_Te_oi and t_in_Sv_out: m_SvTe_ooi += 1
+                    if s_in_Te_oi and t_in_Sv_in:  m_SvTe_ioi += 1
+                    if s_in_Te_ii and t_in_Sv_out: m_SvTe_oii += 1
+                    if s_in_Te_ii and t_in_Sv_in:  m_SvTe_iii += 1
+
+                elif t_in_Te:
+
+                    if s_in_Te_io and t_in_Te_io: m_TeTe_io   += 1
+                    if s_in_Te_io and t_in_Te_oo: m_TeTe_iooo += 1
+                    if s_in_Te_io and t_in_Te_oi: m_TeTe_iooi += 1
+                    if s_in_Te_io and t_in_Te_ii: m_TeTe_ioii += 1
+
+                    if s_in_Te_oo and t_in_Te_io: m_TeTe_iooo += 1
+                    if s_in_Te_oo and t_in_Te_oo: m_TeTe_oo   += 1
+                    if s_in_Te_oo and t_in_Te_oi: m_TeTe_oooi += 1
+                    if s_in_Te_oo and t_in_Te_ii: m_TeTe_ooii += 1
+
+                    if s_in_Te_oi and t_in_Te_io: m_TeTe_iooi += 1
+                    if s_in_Te_oi and t_in_Te_oo: m_TeTe_oooi += 1
+                    if s_in_Te_oi and t_in_Te_oi: m_TeTe_oi   += 1
+                    if s_in_Te_oi and t_in_Te_ii: m_TeTe_oiii += 1
+
+                    if s_in_Te_ii and t_in_Te_io: m_TeTe_ioii += 1
+                    if s_in_Te_ii and t_in_Te_oo: m_TeTe_ooii += 1
+                    if s_in_Te_ii and t_in_Te_oi: m_TeTe_oiii += 1
+                    if s_in_Te_ii and t_in_Te_ii: m_TeTe_ii   += 1
 
 
         n_32_31 = comb(n_Su_out) - m_SuSu_oo
@@ -834,7 +809,7 @@ def _graphlet_degree(A, verbose=False):
         n_109_112 = n_Te_io * n_Te_ii - len(Tri_e_io & Tri_e_ii) - m_TeTe_ioii
         n_100_97  = n_Te_oo * n_Te_oi - len(Tri_e_oo & Tri_e_oi) - m_TeTe_oooi
         n_114_116 = n_Te_oo * n_Te_ii - len(Tri_e_oo & Tri_e_ii) - m_TeTe_ooii
-        n_108_105 = n_Te_oi * n_Te_ii - len(Tri_e_oi & Tri_e_ii) - m_TeTe_iooo
+        n_108_105 = n_Te_oi * n_Te_ii - len(Tri_e_oi & Tri_e_ii) - m_TeTe_oiii
 
 
         # Counting
